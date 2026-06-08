@@ -1,0 +1,32 @@
+# zmk-splitkb-status/Kconfig
+#
+# ZMK-aware status indicators for the SplitKB keyboard. Each indicator is an
+# independent option so a half only pulls in the code it needs.
+
+menuconfig SPLITKB_TRACKBALL_BATTERY
+    bool "Right-half battery indicator on the PIM447 trackball LED"
+    depends on PIM447 && ZMK_BATTERY_REPORTING
+    help
+      Pulses the trackball RGBW LED orange when this half's own battery is
+      low and red when critical. Off otherwise. Runs on the peripheral half
+      using its local battery state, so no split forwarding is needed.
+
+if SPLITKB_TRACKBALL_BATTERY
+
+config SPLITKB_TRACKBALL_BATTERY_LOW
+    int "Low battery threshold (percent)"
+    default 20
+    help
+      At or below this state-of-charge the LED pulses orange.
+
+config SPLITKB_TRACKBALL_BATTERY_CRIT
+    int "Critical battery threshold (percent)"
+    default 5
+    help
+      At or below this state-of-charge the LED pulses red (faster).
+
+endif # SPLITKB_TRACKBALL_BATTERY
+
+module = SPLITKB_STATUS
+module-str = splitkb_status
+source "subsys/logging/Kconfig.template.log_config"

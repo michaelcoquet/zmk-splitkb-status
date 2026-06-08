@@ -1,0 +1,7 @@
+# zmk-splitkb-status/zephyr/module.yml
+# Tells the Zephyr build system this is a module.
+
+name: zmk-splitkb-status
+build:
+  cmake: .
+  kconfig: Kconfig
