@@ -27,6 +27,18 @@ config SPLITKB_TRACKBALL_BATTERY_CRIT
 
 endif # SPLITKB_TRACKBALL_BATTERY
 
+config SPLITKB_CAPS_UNDERGLOW
+    bool "Caps lock indicator on the underglow strip"
+    depends on ZMK_RGB_UNDERGLOW && ZMK_HID_INDICATORS
+    help
+      On the central half, lights the underglow solid white while caps lock
+      is on and restores the configured default look when it turns off.
+      Re-asserts on wake from idle if caps lock is still active.
+
+      Note: ZMK exposes no getter for the current underglow color/effect, so
+      the off transition restores the ZMK_RGB_UNDERGLOW_*_START defaults
+      rather than whatever was running before caps lock engaged.
+
 module = SPLITKB_STATUS
 module-str = splitkb_status
 source "subsys/logging/Kconfig.template.log_config"
