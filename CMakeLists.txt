@@ -1,7 +1,7 @@
 # zmk-splitkb-status/CMakeLists.txt
 # Each status indicator compiles only when its Kconfig option is set.
 
-if(CONFIG_SPLITKB_TRACKBALL_BATTERY OR CONFIG_SPLITKB_CAPS_UNDERGLOW)
+if(CONFIG_SPLITKB_TRACKBALL_BATTERY OR CONFIG_SPLITKB_UNDERGLOW_STATUS)
     zephyr_library()
     # ZMK marks app/include PRIVATE to its app target, so the event-manager,
     # event, underglow and activity headers are not on an external module's
@@ -13,6 +13,6 @@ if(CONFIG_SPLITKB_TRACKBALL_BATTERY)
     zephyr_library_sources(src/trackball_battery.c)
 endif()
 
-if(CONFIG_SPLITKB_CAPS_UNDERGLOW)
-    zephyr_library_sources(src/caps_underglow.c)
+if(CONFIG_SPLITKB_UNDERGLOW_STATUS)
+    zephyr_library_sources(src/underglow_status.c)
 endif()
