@@ -52,6 +52,16 @@ config SPLITKB_UNDERGLOW_BATTERY_CRIT
 
 endif # SPLITKB_UNDERGLOW_STATUS
 
+config SPLITKB_WATCHDOG
+    bool "Hardware watchdog: auto-reset on firmware hang"
+    depends on WATCHDOG
+    help
+      Arms the SoC watchdog and feeds it from a periodic work item on the
+      system work queue. If that queue stops running (a hang/deadlock), the
+      watchdog resets this half after ~10s instead of leaving it dead until a
+      manual reset. Paused during deep sleep so normal idle does not trip it.
+      A mitigation (auto-recover), not a fix for the underlying hang.
+
 module = SPLITKB_STATUS
 module-str = splitkb_status
 source "subsys/logging/Kconfig.template.log_config"
